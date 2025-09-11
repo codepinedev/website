@@ -19,7 +19,7 @@ export function Socials() {
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://g.com/codepine_"
+          href="https://github.com/codepinedev"
         >
           <Github />
           Github
