@@ -1,10 +1,13 @@
 import Image from "next/image";
 
+import { ModeToggle } from "./toggle-mode";
+
 export function Header() {
   return (
-    <div className="flex flex-row border-b-1 border-gray-200 p-2 justify-center">
-      <div className="md:min-w-4xl flex flex-row items-center gap-2">
-        <Image src="/pine.png" alt="Pine icon" width={50} height={50} />
+    <div className="flex flex-row border-b-1 border-muted p-4 justify-center">
+      <div className="max-w-4xl w-full flex flex-row gap-2 justify-between">
+        <Image src="/pine.png" alt="Pine icon" width={40} height={40} />
+        <ModeToggle />
       </div>
     </div>
   );
