@@ -50,13 +50,6 @@
   "editor.unicodeHighlight.invisibleCharacters": false,
   "emmet.showAbbreviationSuggestions": false,
   "eslint.enable": true,
-  "eslint.validate": [
-    "vue",
-    "react",
-    "typescript",
-    "html",
-    "javascript"
-  ],
   "explorer.openEditors.visible": 1,
   "extensions.ignoreRecommendations": true,
   "files.autoSave": "onWindowChange",
