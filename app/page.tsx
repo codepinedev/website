@@ -1,3 +1,4 @@
+import { Github, Twitter } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -22,15 +23,19 @@ export default function Home() {
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://github.com/codepinedev"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn (Under Construction)
+          <Github />
+          Github
+        </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://twitter.com/codepine_"
+        >
+          <Twitter />
+          Twitter
         </a>
       </footer>
     </div>
