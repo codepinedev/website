@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
-import { Header } from "./components/header";
+import { Header } from "./components/headers/header";
 import { ThemeProvider } from "./components/theme-provider";
 
 const geistSans = Geist({
@@ -37,9 +37,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-
           <Header />
-          {children}
+          <div className="font-sans min-h-screen p-8 pb-20 gap-16 sm:p-20 w-full flex justify-center">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
