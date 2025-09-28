@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
+import { ModeToggle } from "../toggle-mode";
 import HeaderLink from "./header-link";
 
 export function Header() {
@@ -18,7 +19,7 @@ export function Header() {
             <HeaderLink href="/resources">Resources</HeaderLink>
             <Button variant="default" size="sm">Join us</Button>
           </div>
-          {/* <ModeToggle /> */}
+          <ModeToggle />
         </div>
       </div>
     </div>
