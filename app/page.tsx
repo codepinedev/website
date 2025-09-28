@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import { Socials } from "./components/socials";
@@ -10,6 +11,11 @@ export default function Home() {
       <div className="flex justify-center">
         <Image src="/codepine-logo.png" alt="Pine icon" width={250} height={250} />
       </div>
+
+      <div className="flex justify-center">
+        <Badge variant="outline">🌲 Welcome to the Codepine Ecosystem</Badge>
+      </div>
+
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
         CODEPINE
       </h1>
