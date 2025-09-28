@@ -26,8 +26,8 @@
 - [x] Configure custom domain (codepine.dev)
 - [x] Set up basic page structure:
   - [x] Home page with cozy branding
-  - [ ] About page (placeholder)
-  - [ ] Blog section
+  - [x] About page (placeholder)
+  - [x] Blog section
   - [x] Resources page (placeholder)
 
 **Design & Branding:**
@@ -38,7 +38,7 @@
 
 **Evening Session (1 hour):**
 
-- [ ] Set up MDX for blog posts
+- [x] Set up MDX for blog posts
 - [x] Configure Tailwind CSS for styling
 - [x] Add basic responsive layout
 
