@@ -21,26 +21,26 @@
 
 **Morning Session (2-3 hours):**
 
-- [ ] Set up Next.js project: `npx create-next-app@latest codepine-dev`
-- [ ] Deploy to Vercel for instant hosting
-- [ ] Configure custom domain (codepine.dev)
-- [ ] Set up basic page structure:
-  - [ ] Home page with cozy branding
+- [x] Set up Next.js project: `npx create-next-app@latest codepine-dev`
+- [x] Deploy to Vercel for instant hosting
+- [x] Configure custom domain (codepine.dev)
+- [x] Set up basic page structure:
+  - [x] Home page with cozy branding
   - [ ] About page (placeholder)
   - [ ] Blog section
-  - [ ] Resources page (placeholder)
+  - [x] Resources page (placeholder)
 
 **Design & Branding:**
 
-- [ ] Color scheme: Forest green (#2D5A27), warm brown (#8B4513), soft orange (#FF8C69)
-- [ ] Typography: Inter for UI, JetBrains Mono for code blocks
-- [ ] Logo/branding elements that feel "cozy" and professional
+- [x] Color scheme: Forest green (#2D5A27), warm brown (#8B4513), soft orange (#FF8C69)
+- [x] Typography: Inter for UI, JetBrains Mono for code blocks
+- [x] Logo/branding elements that feel "cozy" and professional
 
 **Evening Session (1 hour):**
 
 - [ ] Set up MDX for blog posts
-- [ ] Configure Tailwind CSS for styling
-- [ ] Add basic responsive layout
+- [x] Configure Tailwind CSS for styling
+- [x] Add basic responsive layout
 
 ### Day 3: Write Core Content - The Manifesto
 
