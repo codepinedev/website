@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import MotionMarquee from "../motion-marquee";
-import { Socials } from "../socials";
 
 export default function Hero() {
   return (
@@ -58,7 +57,6 @@ export default function Hero() {
           </div>
         ))}
       />
-      <Socials />
     </section>
   );
 }
