@@ -26,7 +26,8 @@ export default function Home() {
           </h1>
           {" "}
           <p className="leading-7 [&:not(:first-child)]:mt-6">
-            Codepine is an open, interactive and engaging community where any coder, from beginner to expert, can learn and grow together. Whether it's a tutorial, Q&A session, algorithmic problem solving or full application design and build, there's always something new to learn!
+            Codepine is an open, interactive and engaging community where any coder, from beginner to expert, can learn and grow together.
+            Whether it's a tutorial, Q&A session, algorithmic problem solving or full application design and build, there's always something new to learn!
           </p>
         </div>
         <div className="flex">
@@ -37,7 +38,6 @@ export default function Home() {
       </section>
       <section className="flex flex-col gap-4">
         <div className="flex justify-center">
-          <Image src="/hero.jpeg" alt="Codepine logo" width={600} height={600} className="rounded-lg" />
         </div>
       </section>
     </main>

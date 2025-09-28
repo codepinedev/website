@@ -12,16 +12,24 @@ export default function ManifestoPage() {
         <h2 className="text-base font-semibold">Our Values</h2>
         <ul className="list-disc pl-6 text-sm leading-7 text-muted-foreground flex flex-col gap-2">
           <li>
-            <span className="font-medium text-foreground">Open by default:</span> we share ideas, code, and feedback freely.
+            <span className="font-medium text-foreground">Open by default:</span>
+            {" "}
+            we share ideas, code, and feedback freely.
           </li>
           <li>
-            <span className="font-medium text-foreground">Learn & teach:</span> every meetup is a chance to level up together.
+            <span className="font-medium text-foreground">Learn & teach:</span>
+            {" "}
+            every meetup is a chance to level up together.
           </li>
           <li>
-            <span className="font-medium text-foreground">Kindness first:</span> respect for each other across languages, genders, and backgrounds.
+            <span className="font-medium text-foreground">Kindness first:</span>
+            {" "}
+            respect for each other across languages, genders, and backgrounds.
           </li>
           <li>
-            <span className="font-medium text-foreground">Build, don’t just talk:</span> we ship projects, even small ones, to learn in public.
+            <span className="font-medium text-foreground">Build, don’t just talk:</span>
+            {" "}
+            we ship projects, even small ones, to learn in public.
           </li>
         </ul>
       </section>
@@ -41,5 +49,3 @@ export default function ManifestoPage() {
     </main>
   );
 }
-
-
