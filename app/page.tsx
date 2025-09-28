@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,8 +39,10 @@ export default function Home() {
       </section>
       <section className="flex flex-col gap-4">
         <div className="flex justify-center">
+
         </div>
       </section>
+
     </main>
   );
 }
