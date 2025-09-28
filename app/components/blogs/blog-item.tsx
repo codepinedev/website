@@ -1,9 +1,10 @@
-import Link from "next/link";
+"use client";
+import { useRouter } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -25,20 +26,24 @@ export default function BlogItem({
   date,
   tags = [],
 }: BlogItemProps) {
+  const router = useRouter();
   return (
     <Card className="transition-all hover:shadow-md">
       <CardHeader className="gap-2">
-        <CardTitle>
-          <Link href={href}>
-            {title}
-          </Link>
-        </CardTitle>
+        <Button variant="link" onClick={() => router.push(href)}>
+          {title}
+        </Button>
         {date
           ? (
               <CardDescription>{date}</CardDescription>
             )
           : null}
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>
+          {description}
+          <Button variant="link" onClick={() => router.push(href)}>
+            Read More →
+          </Button>
+        </CardDescription>
         {tags.length
           ? (
               <div className="mt-2 flex flex-wrap gap-1.5">
@@ -51,17 +56,6 @@ export default function BlogItem({
             )
           : null}
       </CardHeader>
-      <CardContent className="px-6 pb-6">
-        <CardAction className="col-start-auto row-start-auto justify-self-start">
-          <Link
-            href={href}
-            className="text-primary font-medium"
-            aria-label={`Read ${title}`}
-          >
-            Read →
-          </Link>
-        </CardAction>
-      </CardContent>
     </Card>
   );
 }
