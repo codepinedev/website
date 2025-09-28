@@ -16,7 +16,6 @@ export function Header() {
 
         <div className="flex flex-row gap-2 justify-between">
           <div className="flex flex-row gap-2 items-center text-sm">
-            <HeaderLink href="/resources">Resources</HeaderLink>
             <Button variant="default" size="sm">Join us</Button>
           </div>
           <ModeToggle />
