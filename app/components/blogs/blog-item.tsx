@@ -7,6 +7,7 @@ import {
   Card,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 
 interface BlogItemProps {
@@ -26,11 +27,9 @@ export default function BlogItem({
 }: BlogItemProps) {
   const router = useRouter();
   return (
-    <Card className="transition-all hover:shadow-md">
+    <Card className="hover:shadow-md">
       <CardHeader className="gap-2">
-        <Button variant="link" onClick={() => router.push(href)}>
-          {title}
-        </Button>
+        <CardTitle>{title}</CardTitle>
         {date
           ? (
               <CardDescription>{date}</CardDescription>
