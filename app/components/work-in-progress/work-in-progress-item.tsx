@@ -1,4 +1,4 @@
-import { Clock, Coffee, WavesLadder } from "lucide-react";
+import { Clock, WavesLadder } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import {
