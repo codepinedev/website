@@ -5,7 +5,7 @@ export function Socials() {
     <div className="flex flex-wrap items-center justify-center gap-24 w-full">
       <div className="">
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-muted-foreground"
           target="_blank"
           rel="noopener noreferrer"
           href="https://twitter.com/codepine_"
@@ -16,7 +16,7 @@ export function Socials() {
       </div>
       <div className="">
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4 text-muted-foreground"
           target="_blank"
           rel="noopener noreferrer"
           href="https://github.com/codepinedev"

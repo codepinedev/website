@@ -1,5 +1,5 @@
-"use client";
-import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,6 @@ export default function BlogItem({
   date,
   tags = [],
 }: BlogItemProps) {
-  const router = useRouter();
   return (
     <Card className="hover:shadow-md">
       <CardHeader className="gap-2">
@@ -37,8 +36,11 @@ export default function BlogItem({
           : null}
         <CardDescription>
           {description}
-          <Button variant="link" onClick={() => router.push(href)}>
-            Read More →
+          <Button variant="link" asChild>
+            <Link href={href}>
+              Read More
+              <ArrowRight size={16} />
+            </Link>
           </Button>
         </CardDescription>
         {tags.length

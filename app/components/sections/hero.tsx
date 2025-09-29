@@ -8,7 +8,7 @@ import MotionMarquee from "../motion-marquee";
 
 export default function Hero() {
   return (
-    <section className="flex flex-col gap-4 min-h-screen">
+    <section className="flex flex-col gap-4">
       <div className="flex justify-center">
         <Image src="/codepine-logo.png" alt="Pine icon" width={250} height={250} />
       </div>
