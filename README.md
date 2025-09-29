@@ -1,14 +1,27 @@
-# CodePine.dev Launch Plan ## Building a Cozy Developer Ecosystem --- ## 🎯 Vision **CodePine.dev: A Cozy Developer Ecosystem** Create a warm, welcoming space for developers of all levels Focus on WSO2/Integration expertise as anchor + broader full-stack content Build inclusive community where developers feel comfortable learning and sharing Combine practical tutorials, useful tools, and genuine community support --- ## 📅 Week 1: Foundation (Days 1-7)
+# CodePine.dev Launch Plan
+## Building a Cozy Developer Ecosystem
+
+---
+
+## 🎯 Vision
+**CodePine.dev: A Cozy Developer Ecosystem**
+- Create a warm, welcoming space for developers of all levels
+- Focus on WSO2/Integration expertise as anchor + broader full-stack content
+- Build inclusive community where developers feel comfortable learning and sharing
+- Combine practical tutorials, useful tools, and genuine community support
+
+---
+
+## 📅 Week 1: Foundation (Days 1-7)
 
 ### Day 1-2: Technical Setup
 
 **Morning Session (2-3 hours):**
-
-- [x] Set up Next.js project: `npx create-next-app@latest codepine-dev`
-- [x] Deploy to Vercel for instant hosting
-- [x] Configure custom domain (codepine.dev)
-- [x] Set up basic page structure:
-  - [x] Home page with cozy branding
+- [ ] Set up Next.js project: `npx create-next-app@latest codepine-dev`
+- [ ] Deploy to Vercel for instant hosting
+- [ ] Configure custom domain (codepine.dev)
+- [ ] Set up basic page structure:
+  - [ ] Home page with cozy branding
   - [ ] About page (placeholder)
   - [ ] Blog section
   - [ ] Resources page (placeholder)
@@ -20,7 +33,6 @@
 - [x] Logo/branding elements that feel "cozy" and professional
 
 **Evening Session (1 hour):**
-
 - [ ] Set up MDX for blog posts
 - [ ] Configure Tailwind CSS for styling
 - [ ] Add basic responsive layout
@@ -382,8 +394,7 @@
 ## 🎯 Action Items - Start Today
 
 ### Immediate (This Week)
-
-1. [x] Set up Next.js project and deploy to Vercel
+1. [ ] Set up Next.js project and deploy to Vercel
 2. [ ] Write and publish the manifesto post
 3. [ ] Update all social media profiles
 4. [ ] Join 3 developer communities
