@@ -12,7 +12,7 @@ export default function Home() {
           <Image src="/codepine-logo.png" alt="Pine icon" width={250} height={250} />
         </div>
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
-          CODE PINE
+          CODEPINE
         </h1>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Sharpen your coding skills and stay cozy!
