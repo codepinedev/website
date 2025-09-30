@@ -1,10 +1,13 @@
 # CodePine.dev Launch Plan
+
 ## Building a Cozy Developer Ecosystem
 
 ---
 
 ## 🎯 Vision
+
 **CodePine.dev: A Cozy Developer Ecosystem**
+
 - Create a warm, welcoming space for developers of all levels
 - Focus on WSO2/Integration expertise as anchor + broader full-stack content
 - Build inclusive community where developers feel comfortable learning and sharing
@@ -17,6 +20,7 @@
 ### Day 1-2: Technical Setup
 
 **Morning Session (2-3 hours):**
+
 - [ ] Set up Next.js project: `npx create-next-app@latest codepine-dev`
 - [ ] Deploy to Vercel for instant hosting
 - [ ] Configure custom domain (codepine.dev)
@@ -33,6 +37,7 @@
 - [x] Logo/branding elements that feel "cozy" and professional
 
 **Evening Session (1 hour):**
+
 - [ ] Set up MDX for blog posts
 - [ ] Configure Tailwind CSS for styling
 - [ ] Add basic responsive layout
@@ -394,6 +399,7 @@
 ## 🎯 Action Items - Start Today
 
 ### Immediate (This Week)
+
 1. [ ] Set up Next.js project and deploy to Vercel
 2. [ ] Write and publish the manifesto post
 3. [ ] Update all social media profiles
