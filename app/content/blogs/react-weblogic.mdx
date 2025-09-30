@@ -1,7 +1,102 @@
 # How I Got React Running on Oracle WebLogic (Yes, It Works)
-
 Most of us deploy React apps on cloud platforms, such as Netlify, or simply with nginx. But recently I had to deploy my react app on an Oracle WebLogic server for a work project. Our client was not going to change his infrastructure and demanded that we do the deployment on his WebLogic server.
 
 This wasn't straightforward, but after some trial and error I finally made it work. **And in this blog I'll be sharing how I exactly did it.**
 
+
+## Deploying React Apps
+Normally, React apps are static bundles served by lightweight web servers. You run `npm run build`, get a `build/` folder full of static files (HTML, JS, CSS, images), and serve them with something like nginx, Netlify, Vercel, or even a simple Express server. The process is straightforward: the server just needs to deliver those static files to the browser—no backend logic required.
+
+This simplicity is one of React’s biggest strengths for deployment. You don’t need a Java application server, servlet container, or any special runtime—just a way to serve files over HTTP. In most modern setups, you can deploy a React app in minutes with a few commands or a drag-and-drop interface.
+
+## Background
+
+### What is Oracle Weblogic?
+
+> **Oracle WebLogic Server** is a unified and extensible platform for developing, deploying, and running enterprise applications in Java for on-premises and in the cloud.
+>  
+> — *Oracle Documentation*
+
+That’s the official description, but let’s break it down:
+
+**WebLogic** is an enterprise-grade application server. In simple terms, it’s a piece of software that allows you to deploy, run, and manage Java applications—typically packaged as `.war` (Web Application Archive) or `.jar` (Java Archive) files. It’s widely used in large organizations for hosting everything from internal business apps to public-facing web services.
+
+### Why WebLogic?
+
+🎄 Let me be clear: I wouldn’t recommend deploying a React app to WebLogic unless you absolutely have to. In most cases, it's unnecessary and adds complexity. But in my situation, our client's infrastructure was non-negotiable—**WebLogic was the only option**.
+
+We tried to convince them to consider a more typical deployment (like Netlify or nginx), but their IT policies and legacy systems required everything to run on WebLogic. So, I had to find a way to make it work.
+
+In the next section I will explain the challenges faced with this task. 🎇
+
+### Challenges
+Deploying a React app on Oracle WebLogic comes with several unique challenges:
+
+1. **Static File Serving is Not Native**  
+   WebLogic is designed to serve Java web applications, not static sites. Out of the box, it expects `.war` files containing Java servlets, JSPs, and related resources. Serving a folder of static files (like a React build) requires extra configuration.
+
+2. **Routing Issues (Single Page App Problem)**  
+   React apps often use client-side routing (e.g., React Router). If a user navigates directly to `/dashboard`, the server must serve `index.html` for *all* routes, not just `/`. WebLogic, by default, returns a 404 for unknown paths unless you configure it to always serve `index.html`.
+
+
+3. **Build Packaging**  
+   You can't just copy your `build/` folder to the server. You need to wrap your static files in a `.war` file, placing them in the correct directory structure (`/build` or `/static` under `src/main/webapp`), so WebLogic can deploy them as a web application.
+
+4. **No Node.js or NPM**  
+   WebLogic doesn't run Node.js. You must build your React app *before* packaging and deploying. Any server-side rendering or Node-based middleware won't work unless you set up a separate Node server (which defeats the purpose of using WebLogic).
+
+**In summary:**  
+Deploying a React app on WebLogic is possible, but it requires extra steps and careful configuration. You need to package your app as a Java web application, handle routing quirks, and work within the constraints of an enterprise Java server. It's not the smooth, simple process you get with modern static hosts—but with some effort, it *can* be done.
+
+## Step By Step Guide
+
+### Step 0: Laying out the requirements
+
+Before we begin, we will need the following to make this happen
+- Your buildable react application
+- NodeJS Installed on your local machine
+- WebLogic hosted on a server
+- Maven Installed on your local machine
+- Java 17 or higher
+
+If you have those ready, you'll need to start by configuring your react app -> Configure your wrapper for the react build -> Build your react application -> Package it with Maven -> Deploy it on WebLogic
+
+### Step 1: Configuring your React App
+
+Since WebLogic will serve your app under a path like  
+`https://weblogicdomain:port/app`,  
+you need to configure your React app to build assets with the correct base path.
+
+For example, if you’re using **Vite**, update your `vite.config.js`:
+### Step 1: Building the React App
+
+The first step is to create a production-ready build of your React application. This process bundles your JavaScript, optimizes assets, and prepares everything for deployment. 
+
+If you’re using [Bun](https://bun.sh/) as your package manager and build tool, you can run:
+
+~~~bash
+bun build
+~~~
+
+If you’re using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/), the command is usually:
+
+~~~bash
+npm run build
+# or
+yarn build
+~~~
+
+This will generate a `build/` folder (sometimes called `dist/` depending on your setup) in your project directory. This folder contains all the static files—HTML, JavaScript, CSS, images, and other assets—that your app needs to run.
+
+**Make sure to:**
+- Double-check that your build completes without errors.
+- Open the `build/` folder and verify that `index.html`, your JavaScript bundles, and static assets are present.
+- Test the build locally (e.g., with `npx serve build` or a similar static server) to ensure your app works as expected before moving on.
+
+> **Tip:**  
+> If your app uses environment variables (like API endpoints), make sure they are set correctly before building. The build process will embed these values into your static files.
+
+Once you have a working `build/` folder, you’re ready to package it for deployment to WebLogic in the next step.
+
+### Step 2: Wrapping the build into a war file
 
