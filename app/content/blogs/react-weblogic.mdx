@@ -1,11 +1,11 @@
 # How I Got React Running on Oracle WebLogic (Yes, It Works)
+
 Most of us deploy React apps on cloud platforms, such as Netlify, or simply with nginx. But recently I had to deploy my react app on an Oracle WebLogic server for a work project. Our client was not going to change his infrastructure and demanded that we do the deployment on his WebLogic server.
 
 This wasn't straightforward, but after some trial and error I finally made it work. **And in this blog I'll be sharing how I exactly did it.**
 
-
 ## Deploying React Apps
-Normally, React apps are static bundles served by lightweight web servers. You run `npm run build`, get a `build/` folder full of static files (HTML, JS, CSS, images), and serve them with something like nginx, Netlify, Vercel, or even a simple Express server. The process is straightforward: the server just needs to deliver those static files to the browser—no backend logic required.
+Normally, React apps are static bundles served by lightweight web servers. You run `npm run build`, get a `build/` folder full of static files (HTML, JS, CSS, images), and serve them with something like nginx, Netlify, or even a simple Express server. The process is straightforward: the server just needs to deliver those static files to the browser—no backend logic required.
 
 This simplicity is one of React's biggest strengths for deployment. You don't need a Java application server, servlet container, or any special runtime—just a way to serve files over HTTP. In most modern setups, you can deploy a React app in minutes with a few commands or a drag-and-drop interface.
 
@@ -23,13 +23,14 @@ That's the official description, but let's break it down:
 
 ### Why WebLogic?
 
-🎄 Let me be clear: I wouldn't recommend deploying a React app to WebLogic unless you absolutely have to. In most cases, it's unnecessary and adds complexity. But in my situation, our client's infrastructure was non-negotiable—**WebLogic was the only option**.
+⚠️ Let me be clear: I wouldn't recommend deploying a React app to WebLogic unless you absolutely have to. In most cases, it's unnecessary and adds complexity. But in my situation, our client's infrastructure was non-negotiable—**WebLogic was the only option**.
 
 We tried to convince them to consider a more typical deployment (like Netlify or nginx), but their IT policies and legacy systems required everything to run on WebLogic. So, I had to find a way to make it work.
 
-In the next section I will explain the challenges faced with this task. 🎇
+In the next section I will explain the challenges faced with this task.
 
 ### Challenges
+
 Deploying a React app on Oracle WebLogic comes with several unique challenges:
 
 1. **Static File Serving is Not Native**  
@@ -48,65 +49,286 @@ Deploying a React app on Oracle WebLogic comes with several unique challenges:
 **In summary:**  
 Deploying a React app on WebLogic is possible, but it requires extra steps and careful configuration. You need to package your app as a Java web application, handle routing quirks, and work within the constraints of an enterprise Java server. It's not the smooth, simple process you get with modern static hosts—but with some effort, it *can* be done.
 
+---
 ## Step By Step Guide
 
-### Step 0: Laying out the requirements
+### Step 0: Requirements
 
-Before we begin, we will need the following to make this happen
-- Your buildable react application
-- NodeJS Installed on your local machine
+Before we begin, we will need the following to make this happen:
+
+- Your buildable React application
+- Node.js installed on your local machine
 - WebLogic hosted on a server
-- Maven Installed on your local machine
+- Maven installed on your local machine
 - Java 17 or higher
 
-If you have those ready, you'll need to start by configuring your react app -> Configure your wrapper for the react build -> Build your react application -> Package it with Maven -> Deploy it on WebLogic
+If you have those ready, you'll need to follow these steps:
+
+1. Configure your React app
+2. Configure your wrapper for the React build
+3. Build your React application
+4. Package it with Maven
+5. Deploy it on WebLogic
 
 ### Step 1: Configuring your React App
 
-Since WebLogic will serve your app under a path like
-`https://weblogicdomain:port/app`
-You need to configure your React app to build assets with the correct base path.
+Since WebLogic will serve your app under a path like `https://weblogicdomain:port/app`, you need to configure your React app to build assets with the correct base path.
 
 For example, if you're using **Vite**, update your `vite.config.js`:
 
-~~~js
+```js
 export default defineConfig({
-  base: '/app/',
-  build: {
-    outDir: 'build',
-  },
+  // Rest of your configuration will go here
+  // ...
+  
+  // Change '/app' with whatever base path name you want - for this example we will stick with 'app'
+  base: '/app',
 });
-~~~
+```
 
-### Step 1: Building the React App
+> **⚠️ Critical: Route Base Path Matters!**
+>
+> Your application's root route **must** match the base path you set in your build configuration. If you get this wrong, your app will break when deployed to WebLogic.
+>
+> **Example:**  
+> Suppose your app has these pages:
+> - Home page → `/`
+> - About page → `/about`
+> - Contact page → `/contact`
+>
+> If your base path is `/app`, you **must** update your routes to:
+> - Home page → `/app`
+> - About page → `/app/about`
+> - Contact page → `/app/contact`
+>
+> **Always prepend the base path (e.g., `/app`) to every route in your app.**  
+> This ensures your app loads correctly under WebLogic's subdirectory structure.
 
-The first step is to create a production-ready build of your React application. This process bundles your JavaScript, optimizes assets, and prepares everything for deployment. 
+### Step 2: Preparing your WAR packaging configuration
 
-If you're using [Bun](https://bun.sh/) as your package manager and build tool, you can run:
+Having the React application configured, now we move on to the interesting stuff: Java stuff. I will now create a folder in my root application called `react-weblogic`. In this folder I will be creating this structure:
 
-~~~bash
+```
+react-weblogic/
+├── pom.xml
+└── src/
+    └── main/
+        └── webapp/
+            └── WEB-INF/
+                ├── web.xml
+                └── weblogic.xml
+```
+
+
+Now let's create the content for each of these files:
+
+#### `pom.xml`
+
+This Maven configuration file defines the project structure and dependencies:
+
+> **Note:** Change `/app` to match whatever base pathname you configured in your React app.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.react</groupId>
+    <artifactId>react</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>react</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <junit.version>5.8.1</junit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>/app</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+```
+
+#### `weblogic.xml`
+
+This WebLogic-specific configuration file sets the context root for your application:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app
+        xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app
+        http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+    <wls:context-root>/app</wls:context-root>
+</wls:weblogic-web-app>
+```
+
+#### `web.xml`
+
+This configuration handles client-side routing by redirecting all 404 errors to `index.html`, which is essential for React Router to work properly:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <error-page>
+        <error-code>404</error-code>
+        <location>/index.html</location>
+    </error-page>
+</web-app>
+```
+
+If you have all this set up, we will be adding a new script to our `package.json` file:
+
+```json
+{
+  "scripts": {
+    // ... other scripts
+    "build:weblogic": "cp -r dist/* ./react-weblogic/src/main/webapp && cd ./react-weblogic && mvn clean && mvn package"
+  }
+}
+```
+
+This script will:
+1. Copy the content of our build (`dist` folder)
+2. Paste them under `react-weblogic/src/main/webapp`
+3. Run the Maven clean and package commands that will generate our WAR file
+
+
+### Step 3: Building the React App
+
+Once all of the previous steps are implemented, we will prepare our production-ready build of our React application. This process bundles your JavaScript, optimizes assets, and prepares everything for deployment.
+
+I personally use [Bun](https://bun.sh/) as my package manager and build tool:
+
+```bash
 bun build
-~~~
+```
 
 If you're using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/), the command is usually:
 
-~~~bash
+```bash
 npm run build
 # or
 yarn build
-~~~
+```
 
 This will generate a `build/` folder (sometimes called `dist/` depending on your setup) in your project directory. This folder contains all the static files—HTML, JavaScript, CSS, images, and other assets—that your app needs to run.
 
 **Make sure to:**
-- Double-check that your build completes without errors.
-- Open the `build/` folder and verify that `index.html`, your JavaScript bundles, and static assets are present.
-- Test the build locally (e.g., with `npx serve build` or a similar static server) to ensure your app works as expected before moving on.
+
+- Double-check that your build completes without errors
+- Open the `build/` folder and verify that `index.html`, your JavaScript bundles, and static assets are present
+- Test the build locally (e.g., with `npx serve build` or a similar static server) to ensure your app works as expected before moving on
 
 > **Tip:**  
 > If your app uses environment variables (like API endpoints), make sure they are set correctly before building. The build process will embed these values into your static files.
 
 Once you have a working `build/` folder, you're ready to package it for deployment to WebLogic in the next step.
 
-### Step 2: Wrapping the build into a war file
+### Step 4: Wrapping the build into a WAR file
 
+Now we have all of our building blocks, it's just time to generate the WAR file. To do this we will be running our new script:
+
+```bash
+bun run build:weblogic
+```
+
+This will generate a new folder and a WAR file under:
+
+```
+react-weblogic/
+└── target/
+    └── app.war
+```
+
+### Step 5: Deploying to WebLogic
+
+Once you have your `app.war` file, you can deploy it to your WebLogic server:
+
+1. **Access WebLogic Admin Console**
+   - Navigate to `http://your-weblogic-server:7001/console`
+   - Log in with your admin credentials
+
+2. **Deploy the Application**
+   - Go to **Deployments** in the left navigation
+   - Click **Install**
+   - Upload your `app.war` file
+   - Follow the deployment wizard
+   - Make sure to target the correct server/cluster
+
+3. **Start the Application**
+   - Once deployed, start the application from the Deployments page
+   - Your React app should now be accessible at `http://your-weblogic-server:port/app`
+   
+<img
+  src="/weblogic.jpg"
+  alt="Oracle WebLogic Server"
+  className="border-2 border-gray-300 rounded-sm mx-auto my-6 w-3/4 h-3/4 shadow"
+/>
+
+## Troubleshooting
+### Common Issues
+**404 Errors on Direct Navigation**
+- Make sure your `web.xml` includes the error page configuration for 404 redirects
+- Verify that the context root in `weblogic.xml` matches your base path
+
+**Assets Not Loading**
+- Check that your React app's base path configuration matches the WebLogic context root
+- Ensure all static files were copied correctly to the webapp directory
+
+**Build Failures**
+- Verify Maven is properly installed and configured
+- Check that Java version is compatible (Java 17+ recommended)
+- Make sure the `dist/` folder exists before running the build script
+
+## Conclusion
+Deploying a React app to Oracle WebLogic isn't the most straightforward process, but it's definitely achievable with the right configuration. The key steps are:
+
+1. Configure your React app with the correct base path
+2. Set up the proper Maven project structure with WAR packaging
+3. Configure WebLogic-specific files (`web.xml` and `weblogic.xml`)
+4. Build and package everything into a deployable WAR file
+5. Deploy through the WebLogic Admin Console
+
+While this approach works, I'd still recommend using modern deployment platforms like Netlify, or even a simple nginx server for React apps when possible. But when you're constrained by enterprise infrastructure requirements, this method will get your React app running on WebLogic successfully.
+
+Happy deploying! 🚀
