@@ -23,7 +23,7 @@ That's the official description, but let's break it down:
 
 ### Why WebLogic?
 
-⚠️ Let me be clear: I wouldn't recommend deploying a React app to WebLogic unless you absolutely have to. In most cases, it's unnecessary and adds complexity. But in my situation, our client's infrastructure was non-negotiable—**WebLogic was the only option**.
+⚠️ Let me be clear: I wouldn't recommend deploying a React app to WebLogic unless you absolutely have to. In most cases, it's unnecessary and adds complexity. But in my situation, our client's infrastructure was non-negotiable; **WebLogic was the only option**.
 
 We tried to convince them to consider a more typical deployment (like Netlify or nginx), but their IT policies and legacy systems required everything to run on WebLogic. So, I had to find a way to make it work.
 
@@ -47,7 +47,7 @@ Deploying a React app on Oracle WebLogic comes with several unique challenges:
    WebLogic doesn't run Node.js. You must build your React app *before* packaging and deploying. Any server-side rendering or Node-based middleware won't work unless you set up a separate Node server (which defeats the purpose of using WebLogic).
 
 **In summary:**  
-Deploying a React app on WebLogic is possible, but it requires extra steps and careful configuration. You need to package your app as a Java web application, handle routing quirks, and work within the constraints of an enterprise Java server. It's not the smooth, simple process you get with modern static hosts—but with some effort, it *can* be done.
+Deploying a React app on WebLogic is possible, but it requires extra steps and careful configuration. You need to package your app as a Java web application, handle routing quirks, and work within the constraints of an enterprise Java server. It's not the smooth, simple process you get with modern static hosts, but with some effort, it *can* be done.
 
 ---
 ## Step By Step Guide
@@ -251,7 +251,7 @@ npm run build
 yarn build
 ```
 
-This will generate a `build/` folder (sometimes called `dist/` depending on your setup) in your project directory. This folder contains all the static files—HTML, JavaScript, CSS, images, and other assets—that your app needs to run.
+This will generate a `build/` folder (sometimes called `dist/` depending on your setup) in your project directory. This folder contains all the static files—HTML, JavaScript, CSS, images, and other assets; that your app needs to run.
 
 **Make sure to:**
 

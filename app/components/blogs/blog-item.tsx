@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,10 +36,10 @@ export default function BlogItem({
         <CardDescription>
           {description}
           <Button variant="link" asChild>
-            <Link href={href}>
+            <a href={href}>
               Read More
               <ArrowRight size={16} />
-            </Link>
+            </a>
           </Button>
         </CardDescription>
         {tags.length
