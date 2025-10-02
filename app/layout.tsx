@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Code Pine",
+  title: "Codepine",
   description: "Made by Abderrahmen MHEMED. an open, interactive and engaging community where any coder, from beginner to expert, can learn and grow together.",
 };
 

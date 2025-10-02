@@ -1,4 +1,4 @@
-# CodePine.dev
+# Codepine.dev
 
 A cozy developer ecosystem built with Next.js, focusing on WSO2/Integration expertise and full-stack development content.
 

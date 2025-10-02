@@ -17,7 +17,7 @@ export function Footer() {
             {" "}
             {new Date().getFullYear()}
             {" "}
-            Code Pine. All rights reserved.
+            Codepine. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/manifesto" className="hover:underline hover:underline-offset-4">
