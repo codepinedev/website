@@ -1,7 +1,10 @@
 import PageHeader from "../components/headers/page-header";
 
 export default function ManifestoPage() {
-  return (
+const x= 9;
+	x = "s";
+
+	return (
     <main className="flex flex-col gap-8 max-w-4xl w-full">
       <PageHeader
         title="The Tunis Builders Manifesto"
