@@ -33,9 +33,14 @@ export default function WorkInProgressItem() {
 
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span className="flex items-center gap-2">
-            <Clock className="opacity-80" /> Updated yesterday
+            <Clock className="opacity-80" />
+            {' '}
+            Updated yesterday
           </span>
-          <span>{progressPercent}% complete</span>
+          <span>
+            {progressPercent}
+            % complete
+          </span>
         </div>
 
         <div className="h-2 w-full rounded-full bg-muted">
