@@ -3,6 +3,11 @@
 ## It Started With a Simple Question
 
 *"I wonder what Redis is actually good for?"*
+<img
+  src="/desk.png"
+  alt="my-desk"
+  className="rounded-sm mx-auto my-6 shadow"
+/>
 
 That question, asked on a random Tuesday evening in September, led to 74 days of early morning coding sessions and a complete game leaderboard platform. But this isn't a story about waking up at 5 AM every single day. It's about something more interesting.
 
@@ -15,6 +20,13 @@ That question, asked on a random Tuesday evening in September, led to 74 days of
 - **10 pure morning coding days** where ALL commits happened before 9 AM
 - **Peak productivity: 6:00 AM** with 12 commits
 - **12 commits before 7 AM** (the real early bird special)
+
+<img
+  src="/github-stats.png"
+  alt="github-stats"
+  className="rounded-sm mx-auto my-6 shadow"
+/>
+
 
 But here's what caught me off guard: **Morning commits = Features. Evening commits = Bug fixes.**
 
@@ -65,6 +77,17 @@ All the meaty features. The stuff that required focus and deep thinking.
 
 **SubbEngine** - A leaderboard-as-a-service platform for games.
 
+<img
+  src="/subbengine1.png"
+  alt="subbengine1"
+  className="rounded-sm mx-auto my-6 shadow"
+/>
+<img
+  src="/subbengine2.png"
+  alt="subbengine2"
+  className="rounded-sm mx-auto my-6 shadow"
+/>
+
 ### The Core Features
 - Multi-game support
 - Real-time leaderboards with WebSocket updates
@@ -73,6 +96,7 @@ All the meaty features. The stuff that required focus and deep thinking.
 - Background score processing with BullMQ
 - Complete authentication system
 - Admin dashboard
+- Typescript SDK for developer use
 
 ### The Tech Stack
 - **Frontend:** React 19, TanStack Router, Tailwind CSS
@@ -80,46 +104,31 @@ All the meaty features. The stuff that required focus and deep thinking.
 - **Real-time:** Socket.io
 - **Jobs:** BullMQ + Redis
 - **Auth:** Better Auth
-
 ### The Journey
 - Separate API repo: **70 commits**
 - Separate client repo: **33 commits**
 - Migrated to monorepo: **12 commits**
 - **Total:** 115 commits across 74 days
-
 ## The Actual Morning Routine
-
 People romanticize the "5 AM grind" but here's what it actually looked like:
-
 **Week of October 19:** 100% morning commits (peak motivation)
 **Week of October 26:** 25% morning commits (life happened)
 **Week of November 2:** 50% morning commits (finding balance)
 **Week of November 9:** 25% morning commits (shipping mode)
 **Week of November 16:** 58% morning commits (monorepo migration)
-
 I wasn't consistent. Some weeks I was all-in on mornings. Other weeks I coded whenever I could. But the pattern held: mornings = features, evenings = fixes.
-
 ## Why Morning Coding Hit Different
-
 After 74 days, I think I know why morning sessions were so productive for feature work:
-
 1. **Zero interruptions** - No Slack, no emails, no "quick questions"
 2. **Fresh mental model** - I could hold complex architecture in my head
 3. **Long time horizon** - I had hours before my day job started, so I could dive deep
 4. **Creative energy** - My brain wanted to build, not debug
-
 By evening, I was tired. I'd had a full day of work. But I could still fix bugs, refactor, clean up. That required less creative energy.
-
 ## The Weekend Factor
-
 52 commits happened on weekends. That's 45% of my total commits.
-
 This project was clearly something I wanted to build, not something I forced myself to build. When you're excited about what you're making, you don't need discipline - you need to resist the urge to code on Saturday morning.
-
 ## What Actually Happened
-
 Here's the honest timeline:
-
 **September 10:** "Let me try Redis"
 - Created a simple script
 - Basic SET/GET operations
@@ -154,13 +163,20 @@ Here's the honest timeline:
 - Added consumer service
 - Cleaned up architecture
 
+<img
+  src="/monorepoarchitecture.png"
+  alt="monorepo"
+  className="rounded-sm mx-auto my-6 shadow"
+/>
+
+
 ## The Thing Nobody Tells You
 
 **Building something is way easier when you're genuinely curious.**
 
 I didn't wake up at 5 AM because I'm disciplined. I woke up because I was excited to see if I could get WebSockets working. I coded on Saturday mornings because the leaderboard update logic was interesting to figure out.
 
-The "5 AM grind" narrative is sexy, but it's not the real story. The real story is:
+The "5 AM grind" narrative is cool, but it's not the real story. The real story is:
 - I found a problem I wanted to solve (leaderboards are annoying to build)
 - I had a tech stack I wanted to learn (Redis, Hono, BullMQ)
 - I gave myself permission to explore without pressure
