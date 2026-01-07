@@ -1,62 +1,64 @@
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-
-import MotionMarquee from "../motion-marquee";
 
 export default function Hero() {
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex justify-center">
-        <Image src="/codepine-logo.png" alt="Pine icon" width={250} height={250} />
-      </div>
-      <Badge variant="outline">🌲 Welcome to the Codepine Ecosystem</Badge>
-      <div>
-        <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-          A
-          {" "}
-          <span className="text-primary">Cozy</span>
-          {" "}
-          Developer
-          <br />
-          <span className="text-primary">Ecosystem</span>
-        </h1>
-        <p className="leading-7 [&:not(:first-child)]:mt-6 text-justify">
-          Codepine is an open, interactive and engaging community where any coder, from beginner to expert, can learn and grow together.
-          Whether it's a tutorial, Q&A session, algorithmic problem solving or full application design and build, there's always something new to learn!
-        </p>
-      </div>
+    <section className="flex flex-col gap-8 items-center text-center py-8">
+      {/* Logo */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Image
+          src="/codepine-logo.png"
+          alt="Codepine"
+          width={160}
+          height={160}
+          priority
+        />
+      </motion.div>
 
-      <div className="flex justify-center">
-        <Button size="lg" variant="link">
-          Connect With Pine Community
-          <ArrowRight size={18} />
-        </Button>
-      </div>
-      <MotionMarquee
-        className="py-2"
-        gapClassName="gap-4"
-        speedPxPerSecond={30}
-        items={[
-          "Tutorials",
-          "Q&A Sessions",
-          "Algorithm Practice",
-          "App Design",
-          "Community Events",
-          "Mentorship",
-          "Open Source Projects",
-          "Workshops",
-          "Code Reviews",
-          "Networking",
-        ].map((service, idx) => (
-          <div key={idx} className="flex items-center gap-1 text-xs">
-            <div className="bg-primary text-primary-foreground rounded-md w-1 h-1" />
-            {service}
-          </div>
-        ))}
-      />
+      <motion.div
+        className="space-y-6 max-w-2xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+          Welcome to the
+          {" "}
+          <span className="text-primary">Pine Lab</span>
+        </h1>
+
+        <p className="text-lg text-muted-foreground leading-relaxed">
+          A personal workshop for building and experimenting with software.
+          Some projects ship, some stay experiments, all are built with curiosity.
+        </p>
+      </motion.div>
+
+      {/* Quick stats */}
+      <motion.div
+        className="flex gap-8 md:gap-12 pt-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+      >
+        <Stat value="3" label="Projects" />
+        <Stat value="1" label="Live" />
+        <Stat value="2" label="Growing" />
+      </motion.div>
     </section>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="text-center">
+      <div className="text-2xl md:text-3xl font-bold text-primary">{value}</div>
+      <div className="text-xs text-muted-foreground uppercase tracking-wider">{label}</div>
+    </div>
   );
 }

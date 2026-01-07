@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Codepine",
-  description: "Made by Abderrahmen MHEMED. an open, interactive and engaging community where any coder, from beginner to expert, can learn and grow together.",
+  title: "Codepine | Pine Lab",
+  description: "A personal workshop for building and experimenting with software. Some projects ship, some stay experiments, all are built with curiosity.",
 };
 
 export default function RootLayout({
