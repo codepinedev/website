@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <FallingNeedles count={25} />
-      <main className="flex flex-col max-w-3xl w-full gap-y-16 md:gap-y-20 relative z-10 py-8">
+      <main className="flex flex-col max-w-4xl w-full gap-y-16 md:gap-y-20 relative z-10 py-8">
         <Hero />
         <CurrentFocus />
         <Projects />

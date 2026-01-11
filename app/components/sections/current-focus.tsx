@@ -22,7 +22,7 @@ export function CurrentFocus() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Zap className="size-4 text-amber-500" />
-                  <span className="font-medium">Leaderboard SDK v1.0</span>
+                  <span className="font-medium">Cone</span>
                 </div>
                 <span className="text-sm text-muted-foreground">90%</span>
               </div>
